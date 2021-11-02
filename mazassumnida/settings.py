@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import environ
+
 import mimetypes
 
 mimetypes.add_type("image/svg+xml", ".svg", True)
@@ -20,15 +22,17 @@ mimetypes.add_type("image/svg+xml", ".svgz", True)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env(DEBUG=(bool,False))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w$xeq@dv_-43$d2ho!t4_e6#xnn237dtj1_@&pfj5z4sv%dfnm'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['.herokuapp.com', '.ngrok.io', 'localhost', 'github.com', 'mazassumnida.wtf', '127.0.0.1']
 
